@@ -8,8 +8,8 @@
 function autoload ($class)
 {
     $baseDir = BASE_DIR . DS;
-    $class   = $baseDir . 'Classes' . DS . str_replace('\\', DS, $class) . '.php';
-
+    $class   = $baseDir . $class . '.php';
+    
     if (file_exists($class) && is_file($class))
     {
         require $class;

@@ -13,12 +13,12 @@ class UsuarioService
         'listar' => 'listar'
     ];
     private array $dataFromRequest;
-    private object $repositoryUsers;
+    private object $usersRepository;
 
     public function __construct(array $dataFromRequest = [])
     {
         $this->dataFromRequest = $dataFromRequest;
-        $this->repositoryUsers = new RepositoryUsuarios();
+        $this->usersRepository = new RepositoryUsuarios();
     }
 
     public function validateGet()
@@ -28,9 +28,9 @@ class UsuarioService
 
         if (in_array($resource, $this->getResources, true))
         {
-            $response = ($this->dataFromRequest['id'] > 0 ? $this->getUserById() : call_user_func(
-                array($this, $resource))
-            );
+            $response = ($this->dataFromRequest['id'] > 0) ? $this->getUserById() : call_user_func(array($this, $resource));
+            
+            return $response;
         }
         else
         {
@@ -45,6 +45,6 @@ class UsuarioService
 
     private function listar()
     {
-        return $this->repositoryUsers->getMysqlConnection()->getAll(self::TABLE);
+        return $this->usersRepository->getMysqlConnection()->getAll(self::TABLE);
     }
 }

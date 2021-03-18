@@ -13,11 +13,9 @@ try
 }
 catch (Exception $exception)
 {
-    echo json_encode(
-        [
-           UtilGenericConstants::TYPE => UtilGenericConstants::ERROR_TYPE,
-           UtilGenericConstants::RESPONSE => $exception->getMessage()
-        ]
-    );
+    echo json_encode([
+        UtilGenericConstants::TYPE => UtilGenericConstants::ERROR_TYPE,
+        UtilGenericConstants::RESPONSE => $exception->getMessage()
+    ]);
     exit();
 }
