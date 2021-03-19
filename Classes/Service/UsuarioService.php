@@ -4,7 +4,7 @@ namespace Classes\Service;
 
 use Classes\Repository\RepositoryUsuarios;
 use InvalidArgumentException;
-use Classes\Utils\UtilGenericConstants;
+use Classes\Utils\GenericConstantsUtil;
 
 class UsuarioService
 {
@@ -29,13 +29,14 @@ class UsuarioService
         if (in_array($resource, $this->getResources, true))
         {
             $response = ($this->dataFromRequest['id'] > 0) ? $this->getUserById() : call_user_func(array($this, $resource));
-            
-            return $response;
         }
         else
         {
-            throw new InvalidArgumentException(UtilGenericConstants::INVALID_RESOURCE);
-        }     
+            throw new InvalidArgumentException(GenericConstantsUtil::INVALID_RESOURCE);
+        }
+
+        return $response;
+        
     }
 
     private function getUserById ()

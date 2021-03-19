@@ -4,7 +4,7 @@ namespace Classes\Repository;
 
 use Classes\Database\MySql;
 use InvalidArgumentException;
-use Classes\Utils\UtilGenericConstants;
+use Classes\Utils\GenericConstantsUtil;
 
 class RepositoryTokensAutorizados
 {
@@ -26,7 +26,7 @@ class RepositoryTokensAutorizados
         }
         else
         {
-            throw new InvalidArgumentException(UtilGenericConstants::EMPTY_TOKEN);
+            throw new InvalidArgumentException(GenericConstantsUtil::EMPTY_TOKEN);
         }
     }
 
@@ -41,13 +41,13 @@ class RepositoryTokensAutorizados
 
         $stmt = $this->getMysqlConnection()->getConnection()->prepare($query);
         $stmt->bindValue(':token', $token, \PDO::PARAM_STR);
-        $stmt->bindValue(':status', UtilGenericConstants::ACTIVE, \PDO::PARAM_STR);
+        $stmt->bindValue(':status', GenericConstantsUtil::ACTIVE, \PDO::PARAM_STR);
         $stmt->execute();
 
         if ($stmt->rowCount() !== 1)
         {
             header('HTTP/1.1 401 Unauthorized');
-            throw new InvalidArgumentException(UtilGenericConstants::UNAUTHORIZED_TOKEN);
+            throw new InvalidArgumentException(GenericConstantsUtil::UNAUTHORIZED_TOKEN);
             exit();
         }
     }

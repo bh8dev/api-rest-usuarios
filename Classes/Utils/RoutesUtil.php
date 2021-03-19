@@ -2,10 +2,10 @@
 
 namespace Classes\Utils;
 
-class UtilRoutes
+class RoutesUtil
 {
 
-    public static function getRoutes ():array
+    public static function getRoutes():array
     {
         $urls = self::getUrls();
 
@@ -19,7 +19,7 @@ class UtilRoutes
         return $request;
     }
 
-    public static function getUrls ()
+    public static function getUrls()
     {
         $uri = str_replace('/' . PROJECT_DIR, '', $_SERVER['REQUEST_URI']);
         return explode('/', trim($uri, '/'));

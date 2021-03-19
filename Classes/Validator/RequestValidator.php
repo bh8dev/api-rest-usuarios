@@ -3,9 +3,11 @@
 namespace Classes\Validator;
 
 use Classes\Repository\RepositoryTokensAutorizados;
-use Classes\Utils\UtilGenericConstants;
-use Classes\Utils\UtilJson;
+use Classes\Utils\GenericConstantsUtil;
+use Classes\Utils\JsonUtil;
 use Classes\Service\UsuarioService;
+use Exception;
+use InvalidArgumentException;
 
 class RequestValidator
 {
@@ -29,24 +31,28 @@ class RequestValidator
         $this->repositoryAuthorizedTokens = new RepositoryTokensAutorizados();
     }
 
-    public function processRequest ()
+    public function processRequest()
     {
-        $response = json_encode(UtilGenericConstants::INVALID_ROUTE_TYPE, JSON_UNESCAPED_UNICODE);
-        if (in_array($this->request['method'], UtilGenericConstants::REQUEST_TYPE, true))
+        $response = json_encode(GenericConstantsUtil::INVALID_ROUTE_TYPE, JSON_UNESCAPED_UNICODE);
+
+        if (in_array($this->request['method'], GenericConstantsUtil::REQUEST_TYPE, true))
         {
             $response = $this->redirectRequest();
         }
         else
         {
-            return $response;
+            throw new InvalidArgumentException(GenericConstantsUtil::METHOD_NOT_ALLOWED);
         }
+
+        return $response;
+        
     }
 
-    private function redirectRequest ()
+    private function redirectRequest()
     {
         if ($this->request['method'] !== self::METHODS['GET'] && $this->request['method'] !== self::METHODS['DELETE'])
         {
-            $this->dataFromRequest = UtilJson::manageJsonRequestBody();
+            $this->dataFromRequest = JsonUtil::manageJsonRequestBody();
         }
         else
         {
@@ -58,9 +64,9 @@ class RequestValidator
 
     private function get()
     {
-        $response = json_encode(UtilGenericConstants::INVALID_ROUTE_TYPE);
+        $response = json_encode(GenericConstantsUtil::INVALID_ROUTE_TYPE);
 
-        if (in_array($this->request['endpoint'], UtilGenericConstants::AVAILABLE_ENDPOINTS_TYPE['GET'], true))
+        if (in_array($this->request['endpoint'], GenericConstantsUtil::AVAILABLE_ENDPOINTS_TYPE['GET'], true))
         {
             switch ($this->request['endpoint'])
             {
@@ -69,13 +75,13 @@ class RequestValidator
                     $response = $serviceUser->validateGet();
                     break;
                 default:
-                    var_dump($this->availableEndpoints['usuarios']);
-                    break;
+                    throw new InvalidArgumentException(GenericConstantsUtil::INVALID_RESOURCE);
             }
+            return $response;
         }
         else
         {
-            return $response;
+            throw new Exception(GenericConstantsUtil::ERROR_TYPE);
         }
     }
 }

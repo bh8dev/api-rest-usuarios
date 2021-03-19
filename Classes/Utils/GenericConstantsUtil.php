@@ -2,7 +2,7 @@
 
 namespace Classes\Utils;
 
-abstract class UtilGenericConstants
+abstract class GenericConstantsUtil
 {
     /* REQUESTS */
     public const REQUEST_TYPE = ['GET', 'POST', 'PUT', 'DELETE'];
@@ -21,6 +21,7 @@ abstract class UtilGenericConstants
     /* ERROS */
     public const INVALID_ROUTE_TYPE  = 'Rota não permitida!';
     public const INVALID_RESOURCE    = 'Recurso inexistente!';
+    public const METHOD_NOT_ALLOWED  = 'Método não permitido!';
     public const GENERIC_ERROR       = 'Algum erro ocorreu na requisição!';
     public const NO_DATA_RETURNED    = 'Nenhum registro encontrado!';
     public const NO_DATA_AFFECTED    = 'Nenhum registro afetado!';

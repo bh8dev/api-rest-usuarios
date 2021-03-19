@@ -4,7 +4,7 @@ namespace Classes\Database;
 
 use PDO;
 use PDOException;
-use Classes\Utils\UtilGenericConstants;
+use Classes\Utils\GenericConstantsUtil;
 use InvalidArgumentException;
 
 class MySql
@@ -47,17 +47,17 @@ class MySql
             if ($stmt->rowCount() > 0)
             {
                 $this->databaseObject->commit();
-                return UtilGenericConstants::DELETED_SUCCESSFULLY;
+                return GenericConstantsUtil::DELETED_SUCCESSFULLY;
             }
             else
             {
                 $this->databaseObject->rollBack();
-                throw new InvalidArgumentException(UtilGenericConstants::NO_DATA_RETURNED);
+                throw new InvalidArgumentException(GenericConstantsUtil::NO_DATA_RETURNED);
             }
         }
         else
         {
-            throw new InvalidArgumentException(UtilGenericConstants::GENERIC_ERROR);
+            throw new InvalidArgumentException(GenericConstantsUtil::GENERIC_ERROR);
         }
     }
 
@@ -76,7 +76,7 @@ class MySql
             }
             else
             {
-                throw new InvalidArgumentException(UtilGenericConstants::NO_DATA_RETURNED);
+                throw new InvalidArgumentException(GenericConstantsUtil::NO_DATA_RETURNED);
             }
         }
     }
@@ -98,12 +98,12 @@ class MySql
             }
             else
             {
-                throw new InvalidArgumentException(UtilGenericConstants::NO_DATA_RETURNED);
+                throw new InvalidArgumentException(GenericConstantsUtil::NO_DATA_RETURNED);
             }
         }
         else
         {
-            throw new InvalidArgumentException(UtilGenericConstants::ID_REQUIRED);
+            throw new InvalidArgumentException(GenericConstantsUtil::ID_REQUIRED);
         }
     }
 }

@@ -3,19 +3,22 @@
 require 'bootstrap.php';
 
 use Classes\Validator\RequestValidator;
-use Classes\Utils\UtilRoutes;
-use Classes\Utils\UtilGenericConstants;
+use Classes\Utils\RoutesUtil;
+use Classes\Utils\GenericConstantsUtil;
+use Classes\Utils\JsonUtil;
 
 try
 {
-    $requestValidator = new RequestValidator(UtilRoutes::getRoutes());
+    $requestValidator = new RequestValidator(RoutesUtil::getRoutes());
     $response = $requestValidator->processRequest();
+
+    $jsonUtil = new JsonUtil();
+    $jsonUtil->proccessArrayToReturn($response);
 }
 catch (Exception $exception)
 {
     echo json_encode([
-        UtilGenericConstants::TYPE => UtilGenericConstants::ERROR_TYPE,
-        UtilGenericConstants::RESPONSE => $exception->getMessage()
+        GenericConstantsUtil::TYPE => GenericConstantsUtil::ERROR_TYPE,
+        GenericConstantsUtil::RESPONSE => $exception->getMessage()
     ]);
-    exit();
 }
