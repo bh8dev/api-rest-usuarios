@@ -46,7 +46,7 @@ class JsonUtil
     private function returnJson(array $array)
     {
         header('Content-Type: application/json');
-        header('Cache-Control: no-cache, no-tore, must-revalidate');
+        header('Cache-Control: no-cache, no-store, must-revalidate');
         echo json_encode($array);
     }
 }

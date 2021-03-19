@@ -39,9 +39,9 @@ class UsuarioService
         
     }
 
-    private function getUserById ()
+    private function getUserById()
     {
-        
+        return $this->usersRepository->getMysqlConnection()->getById(self::TABLE, $this->dataFromRequest['id']);
     }
 
     private function listar()
